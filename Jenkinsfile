@@ -35,7 +35,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Ansible deploy...'
+                sh 'ansible-playbook -i /var/jenkins_home/ansible/inventory.ini /var/jenkins_home/ansible/playbook.yml'
             }
         }
     }
