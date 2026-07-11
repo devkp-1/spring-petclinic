@@ -34,17 +34,10 @@ pipeline {
                 sh '''
                     docker exec zap zap-baseline.py \
                         -t http://192.168.252.2:8080 \
-                        -r zap-report.html \
                         -I
                 '''
             }
-            post {
-                always {
-                    sh 'docker cp zap:/zap/wrk/zap-report.html /var/jenkins_home/workspace/spring-petclinic/zap-report.html'
-                }
-            }
         }
-
         stage('Deploy') {
             steps {
                 sh 'ansible-playbook -i /var/jenkins_home/ansible/inventory.ini /var/jenkins_home/ansible/playbook.yml -e "jar_file=/var/jenkins_home/workspace/spring-petclinic/target/spring-petclinic-4.0.0-SNAPSHOT.jar"'
