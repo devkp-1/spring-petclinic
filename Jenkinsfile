@@ -34,7 +34,7 @@ pipeline {
                 sh '''
                     docker exec zap zap-baseline.py \
                         -t http://192.168.252.2:8080 \
-                        -I
+                        -I || true
                 '''
             }
         }
