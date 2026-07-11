@@ -35,7 +35,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'ansible-playbook -i /var/jenkins_home/ansible/inventory.ini /var/jenkins_home/ansible/playbook.yml'
+                sh 'ansible-playbook -i /var/jenkins_home/ansible/inventory.ini /var/jenkins_home/ansible/playbook.yml -e "jar_file=/var/jenkins_home/workspace/spring-petclinic/target/spring-petclinic-4.0.0-SNAPSHOT.jar"'
             }
         }
     }
