@@ -31,7 +31,17 @@ pipeline {
 
         stage('ZAP Security Scan') {
             steps {
-                echo 'ZAP Security Scan...'
+                sh '''
+                    docker exec zap zap-baseline.py \
+                        -t http://192.168.252.2:8080 \
+                        -r zap-report.html \
+                        -I
+                '''
+            }
+            post {
+                always {
+                    sh 'docker cp zap:/zap/wrk/zap-report.html /var/jenkins_home/workspace/spring-petclinic/zap-report.html'
+                }
             }
         }
 
